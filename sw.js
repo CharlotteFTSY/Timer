@@ -2,6 +2,7 @@
 
 const CACHE_NAME = 'offline-cache-v1';
 const urlsToCache = [
+  '/',
   '/index.html',
   '/sw.js',
 ];
