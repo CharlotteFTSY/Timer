@@ -7,9 +7,6 @@ const urlsToCache = [
   '/Timer/sw.js',
 ];
 
-
-
-
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
