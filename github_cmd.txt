@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 git init
 git pull origin main
 git add .
@@ -11,3 +12,9 @@ git clone https://github.com/CharlotteFTSY/CharlotteFTSY.github.io.git
 
 
 
+=======
+git add .
+git pull origin main
+git commit -m "test"
+git push origin main
+>>>>>>> origin/main
