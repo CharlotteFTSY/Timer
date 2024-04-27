@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+    <title>觀速法計時器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Flexbox布局 */
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* 黑色背景 */
+            color: #fff; /* 白色文字 */
+            font-family: Arial, sans-serif; /* 字体设置 */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            text-align: center;
+        }
+
+        .timer-container{
+          width: calc(100%); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
+          margin: 0 auto; /* 左右外邊距為10px，保持按鈕之間的間距 */
+            font-size: 50px;
+        }
+        .timer-container p {
+    /* 在此設置計時器文字的樣式 */
+    margin-top: 10px;
+    font-size: 100px;
+    padding: 5px 0;
+}
+.container h1 {
+    font-size: 50px; /* 設置字體大小為36像素 */
+}
+        .vibration-container input[type="range"] {
+                    width: 90%; /* 设置拉条的宽度为容器的90% */
+                    height: 20px; /* 设置拉条的高度为20像素 */
+                    margin-top: 30px; /* 调整拉条与上方元素的间距为10像素 */
+                    padding: 20px 0; /* 调整拉条的上下填充为 20px */
+                }
+
+        .timer-container button:hover, .vibration-container button:hover {
+            background-color: #45a049;
+        }
+
+        .vibration-frequency-text {
+            font-size: 30px;
+            margin-top: 10px;
+        }
+
+        /* 响应式设计 */
+        @media only screen and (max-width: 600px) {
+            .timer-container button {
+                width: calc(100% - 2px); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
+                /* 上边 | 右边 | 下边 | 左边 */
+                margin: 2px auto 0 auto;
+                padding: 5px 0; /* 上下內邊距為40px，讓按鈕內容垂直置中 */
+                font-size: 80px; /* 按鈕文字大小設置為40px */
+                background-color: #4CAF50; /* 將按鈕初始背景色設置為綠色 */
+            }
+            .vibration-container input[type="range"] {
+                width: 90%; /* 设置拉条的宽度为容器的90% */
+                height: 20px; /* 设置拉条的高度为20像素 */
+                margin-top: 30px; /* 调整拉条与上方元素的间距为10像素 */
+                padding: 20px 0; /* 调整拉条的上下填充为 20px */
+            }
+        }
+
+        /* 平板和中等尺寸螢幕 */
+        @media only screen and (min-width: 601px) and (max-width: 1024px) {
+            /* 在此添加對應的樣式 */
+            .timer-container button {
+                width: calc(100%); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
+                /* 上边 | 右边 | 下边 | 左边 */
+                margin: 2px auto 0 auto;
+                padding: 5px 0; /* 上下內邊距為40px，讓按鈕內容垂直置中 */
+                font-size: 80px; /* 按鈕文字大小設置為40px */
+                background-color: #4CAF50; /* 將按鈕初始背景色設置為綠色 */
+            }
+            .vibration-container input[type="range"] {
+                width: 90%; /* 设置拉条的宽度为容器的90% */
+                height: 20px; /* 设置拉条的高度为20像素 */
+                margin-top: 30px; /* 调整拉条与上方元素的间距为10像素 */
+                padding: 20px 0; /* 调整拉条的上下填充为 20px */
+            }
+        }
+
+        /* 桌面和大尺寸螢幕 */
+        @media only screen and (min-width: 1025px) {
+            /* 在此添加對應的樣式 */
+            .timer-container button {
+                width: calc(100%); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
+                /* 上边 | 右边 | 下边 | 左边 */
+                margin: 2px auto 0 auto;
+                padding: 5px 0; /* 上下內邊距為40px，讓按鈕內容垂直置中 */
+                font-size: 80px; /* 按鈕文字大小設置為40px */
+                background-color: #4CAF50; /* 將按鈕初始背景色設置為綠色 */
+            }
+            .vibration-container input[type="range"] {
+                width: 90%; /* 设置拉条的宽度为容器的90% */
+                height: 20px; /* 设置拉条的高度为20像素 */
+                margin-top: 30px; /* 调整拉条与上方元素的间距为10像素 */
+                padding: 20px 0; /* 调整拉条的上下填充为 20px */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>觀速法計時器</h1>
+        <div class="timer-container">
+            <p id="timer">00:00:00</p>
+            <button id="timer-button">Start Timer</button>
+        </div>
+        <div class="vibration-container">
+            <h2 id="vibration-frequency-display">震動頻率 3次/秒</h2>
+            <input type="range" id="vibration-slider" min="1" max="3" value="3" step="1">
+        </div>
+
+
+    </div>
+
+    <script>
+        // 在這裡添加JavaScript程式碼
+        let intervalId;
+        let startTime;
+        let vibrationIntervalId; // 添加振动计时器的ID
+        let vibrationFrequency = 3; // Default to 1 vibration per second
+        let isTimerRunning = false;
+        // Timer and Vibration functionality
+        function toggleTimer() {
+            if (!isTimerRunning) {
+                // Reset start time to the current time
+                startTime = new Date().getTime();
+                intervalId = setInterval(updateTimer, 1000);
+                startVibration(); // Start vibration when timer starts
+                document.getElementById('timer-button').textContent = 'Stop Timer';
+                document.getElementById('timer-button').style.backgroundColor = '#FF0000'; // 將按鈕背景色設置為紅色
+            } else {
+                clearInterval(intervalId);
+                clearInterval(vibrationIntervalId); // Stop the vibration timer
+                // Reset timer display to 00:00:00
+                document.getElementById('timer').textContent = '00:00:00';
+                document.getElementById('timer-button').textContent = 'Start Timer';
+                document.getElementById('timer-button').style.backgroundColor = '#4CAF50'; // 將按鈕背景色設置為綠色
+            }
+            isTimerRunning = !isTimerRunning;
+        }
+
+
+        function updateTimer() {
+            const elapsedTime = new Date().getTime() - startTime;
+            const hours = Math.floor(elapsedTime / 3600000); // 1 hour = 3600000 milliseconds
+            const minutes = Math.floor((elapsedTime % 3600000) / 60000); // 1 minute = 60000 milliseconds
+            const seconds = Math.floor((elapsedTime % 60000) / 1000); // 1 second = 1000 milliseconds
+            document.getElementById('timer').textContent = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds);
+        }
+
+        // Function to format time with leading zero if necessary
+        function formatTime(time) {
+            return (time < 10 ? '0' : '') + time;
+        }
+
+        // Vibration functionality
+        function startVibration() {
+            vibrationIntervalId = setInterval(function() {
+                navigator.vibrate(250 / vibrationFrequency); // Vibrate for 250ms divided by the frequency
+            }, 1000 / vibrationFrequency);
+        }
+
+        // UI event handlers
+        document.getElementById('timer-button').addEventListener('click', toggleTimer);
+        document.getElementById('vibration-slider').addEventListener('input', function() {
+            vibrationFrequency = this.value;
+            updateVibrationFrequencyDisplay(vibrationFrequency); // 更新震動頻率顯示
+            if (isTimerRunning) {
+                clearInterval(vibrationIntervalId); // 停止当前的振动计时器
+                startVibration(); // 启动新的振动计时器
+            }
+        });
+
+        // 更新震动频率显示
+        function updateVibrationFrequencyDisplay(value) {
+            const frequencyDisplay = document.getElementById('vibration-frequency-display');
+            frequencyDisplay.textContent = '震動頻率 ' + value + '次/秒';
+        }
+        // register service worker
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+              .then(registration => {
+                console.log('Service Worker registered successfully:', registration);
+              })
+              .catch(error => {
+                console.error('Service Worker registration failed:', error);
+              });
+          });
+        }
+
+    </script>
+</body>
+</html>
