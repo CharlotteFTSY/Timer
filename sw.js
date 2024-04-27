@@ -2,9 +2,9 @@
 
 const CACHE_NAME = 'offline-cache-v1';
 const urlsToCache = [
-  '/Timer1/',
-  '/Timer1/index.html',
-  '/Timer1/sw.js',
+  '/Timer/',
+  '/Timer/index.html',
+  '/Timer/sw.js',
 ];
 
 
