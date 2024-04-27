@@ -117,7 +117,7 @@
         <h1>觀速法計時器</h1>
         <div class="timer-container">
             <p id="timer">00:00:00</p>
-            <button id="timer-button">Start Timer</button>
+            <button id="timer-button">Start<br>Timer</button>
         </div>
         <div class="vibration-container">
             <h2 id="vibration-frequency-display">震動頻率 3次/秒</h2>
@@ -141,14 +141,14 @@
                 startTime = new Date().getTime();
                 intervalId = setInterval(updateTimer, 1000);
                 startVibration(); // Start vibration when timer starts
-                document.getElementById('timer-button').textContent = 'Stop Timer';
+                document.getElementById('timer-button').textContent = 'Stop\nTimer';
                 document.getElementById('timer-button').style.backgroundColor = '#FF0000'; // 將按鈕背景色設置為紅色
             } else {
                 clearInterval(intervalId);
                 clearInterval(vibrationIntervalId); // Stop the vibration timer
                 // Reset timer display to 00:00:00
                 document.getElementById('timer').textContent = '00:00:00';
-                document.getElementById('timer-button').textContent = 'Start Timer';
+                document.getElementById('timer-button').textContent = 'Start\nTimer';
                 document.getElementById('timer-button').style.backgroundColor = '#4CAF50'; // 將按鈕背景色設置為綠色
             }
             isTimerRunning = !isTimerRunning;
