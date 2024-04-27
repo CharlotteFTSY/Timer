@@ -7,7 +7,6 @@ const urlsToCache = [
   '/Timer/',
 ];
 
-
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
