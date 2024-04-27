@@ -53,15 +53,18 @@
             font-size: 30px;
             margin-top: 10px;
         }
-
+        #timer-button {
+            height: 80px;!important; /* 设置按钮的高度为80像素 */
+            width: 200px;!important; /* 设置按钮的宽度为200像素 */
+        }
         /* 响应式设计 */
         @media only screen and (max-width: 600px) {
           .timer-container button {
-              width: calc(100% - 2px); !important;/* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
-              height: 80% ;  !important;/* 按钮高度为80像素 */
+              width: calc(100% - 2px); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
+              height: 80% ;  /* 按钮高度为80像素 */
               margin-top: 10px;
               padding: 5px 0; /* 上下內邊距為40px，讓按鈕內容垂直置中 */
-              font-size: 50px ;!important; /* 使用vw作为字体大小的单位 */
+              font-size: 50px ; /* 使用vw作为字体大小的单位 */
               background-color: #4CAF50; /* 將按鈕初始背景色設置為綠色 */
           }
 
@@ -77,11 +80,11 @@
         @media only screen and (min-width: 601px) and (max-width: 1024px) {
             /* 在此添加對應的樣式 */
             .timer-container button {
-                width: calc(100% - 2px); !important; /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
-                height: 80% ;  !important;/* 按钮高度为80像素 */
+                width: calc(100% - 2px);  /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
+                height: 80% ; /* 按钮高度为80像素 */
                 margin-top: 10px;
                 padding: 5px 0; /* 上下內邊距為40px，讓按鈕內容垂直置中 */
-                font-size: 50px;!important; /* 使用vw作为字体大小的单位 */
+                font-size: 50px; /* 使用vw作为字体大小的单位 */
                 background-color: #4CAF50; /* 將按鈕初始背景色設置為綠色 */
             }
 
@@ -97,11 +100,11 @@
         @media only screen and (min-width: 1025px) {
             /* 在此添加對應的樣式 */
             .timer-container button {
-                width: calc(100% - 2px);  !important;/* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
-                height: 80% ;  !important;/* 按钮高度为80像素 */
+                width: calc(100% - 2px);  /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
+                height: 80% ; /* 按钮高度为80像素 */
                 margin-top: 10px;
                 padding: 5px 0; /* 上下內邊距為40px，讓按鈕內容垂直置中 */
-                font-size: 50px; !important;/* 使用vw作为字体大小的单位 */
+                font-size: 50px; /* 使用vw作为字体大小的单位 */
                 background-color: #4CAF50; /* 將按鈕初始背景色設置為綠色 */
             }
 
