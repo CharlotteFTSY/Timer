@@ -1,0 +1,4 @@
+git add .
+git pull origin main
+git commit -m "test"
+git push origin main
