@@ -51,12 +51,7 @@
     margin: 2px auto 0 auto;
     padding: 5px 0; /* 上下內邊距為40px，讓按鈕內容垂直置中 */
     font-size: 70px; /* 按鈕文字大小設置為40px */
-    background-color: #4CAF50; /* 將按鈕初始背景色設置為綠色 */
-}
 
-.timer-container button:hover, .vibration-container button:hover {
-    background-color: #45a049;
-    color: #fff;
 }
 
 .vibration-frequency-text {
@@ -67,13 +62,13 @@
         /* 响应式设计 */
         @media only screen and (max-width: 600px) {
             .timer-container button {
-                width: calc(100%); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
+                width: calc(100% - 10px); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
                 /* 上边 | 右边 | 下边 | 左边 */
                 margin: 2px auto 0 auto;
                 padding: 5px 0; /* 上下內邊距為40px，讓按鈕內容垂直置中 */
                 font-size: 70px; /* 按鈕文字大小設置為40px */
-                background-color: #4CAF50; /* 將按鈕初始背景色設置為綠色 */
-                color: #fff;
+
+
             }
             .vibration-container input[type="range"] {
                 width: 90%; /* 设置拉条的宽度为容器的90% */
@@ -87,13 +82,13 @@
         @media only screen and (min-width: 601px) and (max-width: 1024px) {
             /* 在此添加對應的樣式 */
             .timer-container button {
-                width: calc(100%); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
+                width: calc(100% - 10px); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
                 /* 上边 | 右边 | 下边 | 左边 */
                 margin: 2px auto 0 auto;
                 padding: 5px 0; /* 上下內邊距為40px，讓按鈕內容垂直置中 */
                 font-size: 70px; /* 按鈕文字大小設置為40px */
                 background-color: #4CAF50; /* 將按鈕初始背景色設置為綠色 */
-                color: #fff;
+
             }
             .vibration-container input[type="range"] {
                 width: 90%; /* 设置拉条的宽度为容器的90% */
@@ -107,13 +102,13 @@
         @media only screen and (min-width: 1025px) {
             /* 在此添加對應的樣式 */
             .timer-container button {
-                width: calc(100%); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
+                width: calc(100% - 10px); /* 左右邊距為20px，按鈕寬度為螢幕寬度減去20px */
                 /* 上边 | 右边 | 下边 | 左边 */
                 margin: 2px auto 0 auto;
                 padding: 5px 0; /* 上下內邊距為40px，讓按鈕內容垂直置中 */
                 font-size: 70px; /* 按鈕文字大小設置為40px */
                 background-color: #4CAF50; /* 將按鈕初始背景色設置為綠色 */
-                color: #fff;
+
             }
             .vibration-container input[type="range"] {
                 width: 90%; /* 设置拉条的宽度为容器的90% */
@@ -156,6 +151,8 @@
                 startVibration(); // Start vibration when timer starts
                 document.getElementById('timer-button').textContent = 'Stop\nTimer';
                 document.getElementById('timer-button').style.backgroundColor = '#FF0000'; // 將按鈕背景色設置為紅色
+                document.getElementById('timer-button').style.color = '#fff';
+
             } else {
                 clearInterval(intervalId);
                 clearInterval(vibrationIntervalId); // Stop the vibration timer
@@ -163,6 +160,8 @@
                 document.getElementById('timer').textContent = '00:00:00';
                 document.getElementById('timer-button').textContent = 'Start\nTimer';
                 document.getElementById('timer-button').style.backgroundColor = '#4CAF50'; // 將按鈕背景色設置為綠色
+                document.getElementById('timer-button').style.color = '#fff';
+
             }
             isTimerRunning = !isTimerRunning;
         }
