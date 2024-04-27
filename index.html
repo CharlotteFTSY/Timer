@@ -139,7 +139,7 @@
                 startTime = new Date().getTime();
                 intervalId = setInterval(updateTimer, 1000);
                 startVibration(); // Start vibration when timer starts
-                document.getElementById('timer-button').textContent = 'Stop\nTimer';
+                document.getElementById('timer-button').textContent = 'StopTimer';
                 document.getElementById('timer-button').style.backgroundColor = '#FF0000'; // 將按鈕背景色設置為紅色
                 document.getElementById('timer-button').style.color = '#FFFFFF';
 
@@ -148,7 +148,7 @@
                 clearInterval(vibrationIntervalId); // Stop the vibration timer
                 // Reset timer display to 00:00:00
                 document.getElementById('timer').textContent = '00:00:00';
-                document.getElementById('timer-button').textContent = 'Start\nTimer';
+                document.getElementById('timer-button').textContent = 'StartTimer';
                 document.getElementById('timer-button').style.backgroundColor = '#4CAF50'; // 將按鈕背景色設置為綠色
                 document.getElementById('timer-button').style.color = '#FFFFFF';
 
