@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timer and Vibration</title>
+    <style>
+        /* 在這裡添加CSS樣式 */
+        .container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.timer-container, .vibration-container {
+    margin-top: 40px;
+}
+
+.timer-container h2, .vibration-container h2 {
+    font-size: 24px;
+}
+
+.timer-container button, .vibration-container button {
+    margin: 20px 10px;
+}
+
+.vibration-container input[type="range"] {
+    width: 300px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Timer and Vibration</h1>
+        <div class="timer-container">
+            <h2>Timer</h2>
+            <p id="timer">0 seconds</p>
+            <button id="start-timer">Start Timer</button>
+            <button id="stop-timer">Stop Timer</button>
+        </div>
+        <div class="vibration-container">
+            <h2>Vibration Frequency</h2>
+            <input type="range" id="vibration-slider" min="1" max="3" value="1" step="1">
+            <button id="start-vibration">Start Vibration</button>
+        </div>
+    </div>
+
+    <script>
+        // 在這裡添加JavaScript程式碼
+        let intervalId;
+        let startTime;
+        let vibrationFrequency = 1; // Default to 1 vibration per second
+
+        // Timer functionality
+        function startTimer() {
+            startTime = new Date().getTime();
+            intervalId = setInterval(updateTimer, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(intervalId);
+        }
+
+        function updateTimer() {
+            const elapsedTime = new Date().getTime() - startTime;
+            const seconds = Math.floor(elapsedTime / 1000);
+            document.getElementById('timer').textContent = seconds + ' seconds';
+        }
+
+        // Vibration functionality
+        function startVibration() {
+            setInterval(function() {
+                navigator.vibrate(250 / vibrationFrequency); // Vibrate for 250ms divided by the frequency
+            }, 1000 / vibrationFrequency);
+        }
+
+        // UI event handlers
+        document.getElementById('start-timer').addEventListener('click', startTimer);
+        document.getElementById('stop-timer').addEventListener('click', stopTimer);
+        document.getElementById('vibration-slider').addEventListener('input', function() {
+            vibrationFrequency = this.value;
+        });
+        document.getElementById('start-vibration').addEventListener('click', startVibration);
+
+    </script>
+</body>
+</html>
