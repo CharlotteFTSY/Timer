@@ -68,7 +68,14 @@
         /* Responsive design */
         @media only screen and (max-width: 600px) {
             .timer-container button {
-                font-size: 50px; /* Responsive font size */
+              width: calc(100% - 2px); /* Full width with 2px margin on each side */
+              height: 200px; /* 增大按钮高度 */; /* Button height */
+              margin-top: 10px;
+              padding: 5px 0; /* Vertical padding */
+              font-size: 100px; /* Responsive font size */
+              background-color: #4CAF50; /* Green background color */
+              border: none; /* Remove border */
+              color: #fff; /* White text color */
             }
         }
 
