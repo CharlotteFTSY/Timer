@@ -174,7 +174,7 @@
             frequencyDisplay.textContent = '震動頻率 ' + value + '次/秒';
         }
         // 在網址中包含隨機數
-       window.addEventListener('load', () => {
+      /* window.addEventListener('load', () => {
            // 檢查 URL 中是否存在隨機數
            if (!window.location.href.includes('?v=')) {
                // 生成隨機數
@@ -184,7 +184,7 @@
                // 將新的 URL 分配給窗口位置，以觸發重新加載
                window.location.href = newURL;
            }
-       });
+       }); */
         // register service worker
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
