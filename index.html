@@ -102,6 +102,7 @@
         <div class="vibration-container">
             <h2 id="vibration-frequency-display">震動頻率 3次/秒</h2>
             <input type="range" id="vibration-slider" min="1" max="3" value="3" step="1">
+
         </div>
     </div>
     <script>
@@ -120,6 +121,7 @@
                 startVibration(); // Start vibration when timer starts
                 document.getElementById('timer-button').textContent = 'Stop Timer';
                 document.getElementById('timer-button').style.backgroundColor = '#FF0000'; // 將按鈕背景色設置為紅色
+                vibrationSlider.disabled = true; // 禁用震動頻率滑塊
             } else {
                 clearInterval(intervalId);
                 clearInterval(vibrationIntervalId); // Stop the vibration timer
@@ -127,6 +129,7 @@
                 document.getElementById('timer').textContent = '00:00:00';
                 document.getElementById('timer-button').textContent = 'Start Timer';
                 document.getElementById('timer-button').style.backgroundColor = '#4CAF50'; // 將按鈕背景色設置為綠色
+                vibrationSlider.disabled = false; // 啟用震動頻率滑塊
             }
             isTimerRunning = !isTimerRunning;
         }
@@ -167,23 +170,23 @@
         function updateVibrationFrequencyDisplay(value) {
             const frequencyDisplay = document.getElementById('vibration-frequency-display');
             frequencyDisplay.textContent = '震動頻率 ' + value + '次/秒';
-        }
-        const express = require('express');
-        const app = express();
-        const port = 3000;
+            const express = require('express');
+            const app = express();
+            const port = 3000;
 
-        // 使用 Express 路由
-        app.get('/', (req, res) => {
-          // 生成隨機數
-          const randomValue = Math.floor(Math.random() * 1000000000) + 1;
-          // 重定向到帶有隨機數的新 URL
-          res.redirect('/Timer/?v=' + randomValue);
-        });
+            // 使用 Express 路由
+            app.get('/', (req, res) => {
+              // 生成隨機數
+              const randomValue = Math.floor(Math.random() * 1000000000) + 1;
+              // 重定向到帶有隨機數的新 URL
+              res.redirect('/Timer/?v=' + randomValue);
+            });
 
-        // 監聽端口
-        app.listen(port, () => {
-          console.log(`Server listening at http://localhost:${port}`);
-        });
+            // 監聽端口
+            app.listen(port, () => {
+              console.log(`Server listening at http://localhost:${port}`);
+            });
+
         // register service worker
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
