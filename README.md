@@ -7,4 +7,4 @@
 程式於 https://charlotteftsy.github.io/Timer/ 網址之後自動加入隨機變數以更新緩存<br>
 https://charlotteftsy.github.io/Timer/?v=123456789 (123456789為隨機變數)<br>
 如之後有版本更新需要重新整理網頁時請將網址的?v=123456789刪除，<br>
-用https://charlotteftsy.github.io/Timer/重新整理<br>
+用 https://charlotteftsy.github.io/Timer/ 重新整理<br>
