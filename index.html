@@ -72,12 +72,10 @@
 
 input[type=range] {
   -webkit-appearance: none;
-  width: 100%;
+  width: 60%;
   height: 25px;
-  background: linear-gradient(to right, #4CAF50 50%, #d3d3d3 50%);
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: all 0.1s ease;
+  background: #d3d3d3;
+  outline: none;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -94,10 +92,6 @@ input[type=range]::-moz-range-thumb {
   height: 25px;
   background: #4CAF50;
   cursor: pointer;
-}
-
-input[type=range]:active {
-  background-position: left bottom;
 }
 
         /* Responsive design */
@@ -130,6 +124,11 @@ input[type=range]:active {
     </div>
     <script>
         // 在這裡添加JavaScript程式碼
+      var slider = document.getElementById("vibration-slider");
+slider.oninput = function() {
+  var value = (this.value-this.min)/(this.max-this.min)*100
+  this.style.background = 'linear-gradient(to right, #4CAF50 ' + value + '%, #d3d3d3 ' + value + '%)';
+};
         let intervalId;
         let startTime;
         let vibrationIntervalId; // 添加振动计时器的ID
