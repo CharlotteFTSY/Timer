@@ -130,6 +130,18 @@ input[type=range]::-moz-range-thumb {
     </div>
     <script>
         // 在這裡添加JavaScript程式碼
+              // register service worker
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+              .then(registration => {
+                console.log('Service Worker registered successfully:', registration);
+              })
+              .catch(error => {
+                console.error('Service Worker registration failed:', error);
+              });
+          });
+        }
       var slider = document.getElementById("vibration-slider");
 slider.oninput = function() {
   var value = (this.value-this.min)/(this.max-this.min)*100
@@ -200,18 +212,7 @@ slider.oninput = function() {
             frequencyDisplay.textContent = '震動頻率 ' + value + '次/秒';
         }
       
-        // register service worker
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js')
-              .then(registration => {
-                console.log('Service Worker registered successfully:', registration);
-              })
-              .catch(error => {
-                console.error('Service Worker registration failed:', error);
-              });
-          });
-        }
+
 
     </script>
 </body>
