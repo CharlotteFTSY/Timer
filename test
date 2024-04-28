@@ -143,7 +143,7 @@
                 startVibration(); // Start vibration when timer starts
                 document.getElementById('timer-button').textContent = 'Stop Timer';
                 document.getElementById('timer-button').style.backgroundColor = '#FF0000'; // 將按鈕背景色設置為紅色
-                vibrationSlider.disabled = true; // 禁用震動頻率滑塊
+
             } else {
                 clearInterval(intervalId);
                 clearInterval(vibrationIntervalId); // Stop the vibration timer
@@ -151,7 +151,7 @@
                 document.getElementById('timer').textContent = '00:00:00';
                 document.getElementById('timer-button').textContent = 'Start Timer';
                 document.getElementById('timer-button').style.backgroundColor = '#4CAF50'; // 將按鈕背景色設置為綠色
-                vibrationSlider.disabled = false; // 啟用震動頻率滑塊
+                
             }
             isTimerRunning = !isTimerRunning;
         }
