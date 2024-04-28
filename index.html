@@ -168,15 +168,22 @@
             const frequencyDisplay = document.getElementById('vibration-frequency-display');
             frequencyDisplay.textContent = '震動頻率 ' + value + '次/秒';
         }
-        // 檢查 URL 中是否存在隨機數
-        if (!window.location.href.includes('?v=')) {
-            // 生成隨機數
-            const randomValue = Math.floor(Math.random() * 1000000000) + 1;
-            // 構建新的 URL
-            const newURL = "https://charlotteftsy.github.io/Timer/?v=" + randomValue;
-            // 將新的 URL 分配給窗口位置，以觸發重新加載
-            window.location.href = newURL;
-        }
+        const express = require('express');
+        const app = express();
+        const port = 3000;
+
+        // 使用 Express 路由
+        app.get('/', (req, res) => {
+          // 生成隨機數
+          const randomValue = Math.floor(Math.random() * 1000000000) + 1;
+          // 重定向到帶有隨機數的新 URL
+          res.redirect('/Timer/?v=' + randomValue);
+        });
+
+        // 監聽端口
+        app.listen(port, () => {
+          console.log(`Server listening at http://localhost:${port}`);
+        });
         // register service worker
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
