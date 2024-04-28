@@ -1,84 +1,201 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Timer and Vibration</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <title>觀速法計時器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* 在這裡添加CSS樣式 */
+        /* Flexbox布局 */
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* 黑色背景 */
+            color: #fff; /* 白色文字 */
+            font-family: Arial, sans-serif; /* 字体设置 */
+        }
         .container {
-    text-align: center;
-    margin-top: 50px;
-}
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            max-height: 100%; /* 设置最大高度为屏幕宽度 */
+            max-width: 100%; /* 设置最大宽度为屏幕宽度 */
+            margin: 0 auto; /* 水平居中 */
+        }
 
-.timer-container, .vibration-container {
-    margin-top: 40px;
-}
+        .timer-container {
+          width: 100%; /* Full width */
+          height: 100vh; /* Full viewport height */
 
-.timer-container h2, .vibration-container h2 {
-    font-size: 24px;
-}
+        }
 
-.timer-container button, .vibration-container button {
-    margin: 20px 10px;
-}
+        .timer-container p {
+            /* Timer text style */
+            margin-top: 10px;
+            font-size: 100px;
+            padding: 5px 0;
+            height: 20px;
+        }
 
-.vibration-container input[type="range"] {
-    width: 300px;
-}
+        .container h1 {
+            font-size: 50px; /* Header font size */
+        }
+
+        .timer-container button {
+          width: calc(100% - 2px); /* Full width with 2px margin on each side */
+          height: 40vh; /* 增大按钮高度 */; /* Button height */
+          margin-top: 5px;
+          font-size: 5em; /* Responsive font size */
+          padding: 5px 10px; /* 调整按钮内边距 */
+          background-color: #4CAF50; /* Green background color */
+          border: none; /* Remove border */
+          color: #fff; /* White text color */
+        }
+
+        .timer-container button:hover {
+            background-color: #4CAF50; /* Green hover color */
+        }
+        .vibration-container{
+          width: 100%;
+          height: 100%; /* Set height to 20px */
+        }
+        .vibration-container h2{
+          font-size: 25px; /* Header font size */
+          align-self: flex-start; /* 将标题文本置于容器顶部 */
+          margin-top: 3px; /* 可选：如果需要，可以添加额外的顶部间距 */
+        }
+
+        .vibration-container input[type="range"] {
+            width: 50%;
+            height: 40%; /* Set height to 20px */
+            margin-top: 5px; /* Adjust margin top */
+            margin-bottom: 20px; /* 添加底部间距 */
+            padding: 10px 0; /* Adjust padding */
+
+        }
+
+        /* Responsive design */
+        @media only screen and (max-width: 600px) {
+            .timer-container button {
+                  width: calc(100% - 2px); /* Full width with 2px margin on each side */
+                  height: 40vh; /* 增大按钮高度 */; /* Button height */
+                  margin-top: 5px;
+                  font-size: 6em; /* Responsive font size */
+                  padding: 5px 10px; /* 调整按钮内边距 */
+                  background-color: #4CAF50; /* Green background color */
+                  border: none; /* Remove border */
+                  color: #fff; /* White text color */
+              }
+        }
 
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Timer and Vibration</h1>
+        <h1>觀速法計時器</h1>
         <div class="timer-container">
-            <h2>Timer</h2>
-            <p id="timer">0 seconds</p>
-            <button id="start-timer">Start Timer</button>
-            <button id="stop-timer">Stop Timer</button>
+            <p id="timer">00:00:00</p>
+            <button id="timer-button">Start Timer</button>
         </div>
         <div class="vibration-container">
-            <h2>Vibration Frequency</h2>
-            <input type="range" id="vibration-slider" min="1" max="3" value="1" step="1">
-            <button id="start-vibration">Start Vibration</button>
+            <h2 id="vibration-frequency-display">震動頻率 3次/秒</h2>
+            <input type="range" id="vibration-slider" min="1" max="3" value="3" step="1">
+
         </div>
     </div>
-
     <script>
+    window.addEventListener('load', () => {
+        const randomValue = Math.floor(Math.random() * 1000000000) + 1;
+        const currentURL = new URL(window.location.href); // 使用URL物件解析當前URL
+        if (!currentURL.searchParams.get('v')) { // 檢查是否存在隨機數
+            currentURL.searchParams.set('v', randomValue); // 設置隨機數
+            window.location.href = currentURL.toString(); // 將新的URL分配給窗口位置，以觸發重新加載
+        }
+    });
+
+
+    // register service worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(registration => {
+                console.log('Service Worker registered successfully:', registration);
+            })
+            .catch(error => {
+                console.error('Service Worker registration failed:', error);
+            });
+    }
+});
         // 在這裡添加JavaScript程式碼
+        let vibrationSlider; // 定義全局變量
         let intervalId;
         let startTime;
-        let vibrationFrequency = 1; // Default to 1 vibration per second
-
-        // Timer functionality
-        function startTimer() {
-            startTime = new Date().getTime();
-            intervalId = setInterval(updateTimer, 1000);
+        let vibrationIntervalId; // 添加振动计时器的ID
+        let vibrationFrequency = 3; // Default to 1 vibration per second
+        let isTimerRunning = false;
+        // Timer and Vibration functionality
+        function toggleTimer() {
+            if (!isTimerRunning) {
+                // Reset start time to the current time
+                startTime = new Date().getTime();
+                intervalId = setInterval(updateTimer, 1000);
+                startVibration(); // Start vibration when timer starts
+                document.getElementById('timer-button').textContent = 'Stop Timer';
+                document.getElementById('timer-button').style.backgroundColor = '#FF0000'; // 將按鈕背景色設置為紅色
+                vibrationSlider.disabled = true; // 禁用震動頻率滑塊
+            } else {
+                clearInterval(intervalId);
+                clearInterval(vibrationIntervalId); // Stop the vibration timer
+                // Reset timer display to 00:00:00
+                document.getElementById('timer').textContent = '00:00:00';
+                document.getElementById('timer-button').textContent = 'Start Timer';
+                document.getElementById('timer-button').style.backgroundColor = '#4CAF50'; // 將按鈕背景色設置為綠色
+                vibrationSlider.disabled = false; // 啟用震動頻率滑塊
+            }
+            isTimerRunning = !isTimerRunning;
         }
 
-        function stopTimer() {
-            clearInterval(intervalId);
-        }
 
         function updateTimer() {
             const elapsedTime = new Date().getTime() - startTime;
-            const seconds = Math.floor(elapsedTime / 1000);
-            document.getElementById('timer').textContent = seconds + ' seconds';
+            const hours = Math.floor(elapsedTime / 3600000); // 1 hour = 3600000 milliseconds
+            const minutes = Math.floor((elapsedTime % 3600000) / 60000); // 1 minute = 60000 milliseconds
+            const seconds = Math.floor((elapsedTime % 60000) / 1000); // 1 second = 1000 milliseconds
+            document.getElementById('timer').textContent = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds);
+        }
+
+        // Function to format time with leading zero if necessary
+        function formatTime(time) {
+            return (time < 10 ? '0' : '') + time;
         }
 
         // Vibration functionality
         function startVibration() {
-            setInterval(function() {
+            vibrationIntervalId = setInterval(function() {
                 navigator.vibrate(250 / vibrationFrequency); // Vibrate for 250ms divided by the frequency
             }, 1000 / vibrationFrequency);
         }
 
         // UI event handlers
-        document.getElementById('start-timer').addEventListener('click', startTimer);
-        document.getElementById('stop-timer').addEventListener('click', stopTimer);
+        document.getElementById('timer-button').addEventListener('click', toggleTimer);
         document.getElementById('vibration-slider').addEventListener('input', function() {
             vibrationFrequency = this.value;
+            updateVibrationFrequencyDisplay(vibrationFrequency); // 更新震動頻率顯示
+            if (isTimerRunning) {
+                clearInterval(vibrationIntervalId); // 停止当前的振动计时器
+                startVibration(); // 启动新的振动计时器
+            }
         });
-        document.getElementById('start-vibration').addEventListener('click', startVibration);
+
+        // 更新震动频率显示
+        function updateVibrationFrequencyDisplay(value) {
+            const frequencyDisplay = document.getElementById('vibration-frequency-display');
+            frequencyDisplay.textContent = '震動頻率 ' + value + '次/秒';
+            const express = require('express');
+            const app = express();
+            const port = 3000;
+
 
     </script>
 </body>
