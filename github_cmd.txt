@@ -1,20 +1,11 @@
-<<<<<<< HEAD
 git init
 git pull origin main
 git add .
 git commit -m "test"
 git push origin main
-
 git push -u origin master
 git remote add origin https://github.com/CharlotteFTSY/Timer.git
-git clone https://github.com/CharlotteFTSY/CharlotteFTSY.github.io.git
+git clone https://github.com/CharlotteFTSY/Timer.git
 
 
 
-
-=======
-git add .
-git pull origin main
-git commit -m "test"
-git push origin main
->>>>>>> origin/main

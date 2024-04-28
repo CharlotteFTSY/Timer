@@ -20,12 +20,15 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: auto;
             text-align: center;
+            max-height: 100%; /* 设置最大高度为屏幕宽度 */
+            max-width: 100%; /* 设置最大宽度为屏幕宽度 */
+            margin: 0 auto; /* 水平居中 */
         }
 
         .timer-container {
           width: 100%; /* Full width */
+          height: 100vh; /* Full viewport height */
           margin: 0 auto; /* Center horizontally */
           font-size: 50px;
         }
@@ -44,7 +47,7 @@
 
         .timer-container button {
             width: calc(100% - 2px); /* Full width with 2px margin on each side */
-            height: 200px; /* 增大按钮高度 */; /* Button height */
+            height: 70%; /* 增大按钮高度 */; /* Button height */
             margin-top: 10px;
             padding: 5px 0; /* Vertical padding */
             font-size: 100px; /* Responsive font size */
@@ -56,10 +59,19 @@
         .timer-container button:hover {
             background-color: #4CAF50; /* Green hover color */
         }
+        .vibration-container{
+          width: 100%;
+          height: 100%; /* Set height to 20px */
+        }
+        .vibration-container h2{
+          font-size: 25px; /* Header font size */
+          align-self: flex-start; /* 将标题文本置于容器顶部 */
+          margin-top: 3px; /* 可选：如果需要，可以添加额外的顶部间距 */
+        }
 
         .vibration-container input[type="range"] {
-            width: 100%; /* Set width to 90% of container */
-            height: 20px; /* Set height to 20px */
+            width: 50%;
+            height: 40%; /* Set height to 20px */
             margin-top: 10px; /* Adjust margin top */
             padding: 10px 0; /* Adjust padding */
 
