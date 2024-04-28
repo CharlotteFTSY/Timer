@@ -106,29 +106,7 @@
         </div>
     </div>
     <script>
-    window.addEventListener('load', () => {
-        const randomValue = Math.floor(Math.random() * 1000000000) + 1;
-        const currentURL = new URL(window.location.href); // 使用URL物件解析當前URL
-        if (!currentURL.searchParams.get('v')) { // 檢查是否存在隨機數
-            currentURL.searchParams.set('v', randomValue); // 設置隨機數
-            window.location.href = currentURL.toString(); // 將新的URL分配給窗口位置，以觸發重新加載
-        }
-    });
-
-
-    // register service worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-            .then(registration => {
-                console.log('Service Worker registered successfully:', registration);
-            })
-            .catch(error => {
-                console.error('Service Worker registration failed:', error);
-            });
-    }
-});
         // 在這裡添加JavaScript程式碼
-        let vibrationSlider; // 定義全局變量
         let intervalId;
         let startTime;
         let vibrationIntervalId; // 添加振动计时器的ID
@@ -151,7 +129,6 @@
                 document.getElementById('timer').textContent = '00:00:00';
                 document.getElementById('timer-button').textContent = 'Start Timer';
                 document.getElementById('timer-button').style.backgroundColor = '#4CAF50'; // 將按鈕背景色設置為綠色
-                
             }
             isTimerRunning = !isTimerRunning;
         }
@@ -196,6 +173,31 @@
             const app = express();
             const port = 3000;
 
+            // 使用 Express 路由
+            app.get('/', (req, res) => {
+              // 生成隨機數
+              const randomValue = Math.floor(Math.random() * 1000000000) + 1;
+              // 重定向到帶有隨機數的新 URL
+              res.redirect('/Timer/?v=' + randomValue);
+            });
+
+            // 監聽端口
+            app.listen(port, () => {
+              console.log(`Server listening at http://localhost:${port}`);
+            });
+
+        // register service worker
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+              .then(registration => {
+                console.log('Service Worker registered successfully:', registration);
+              })
+              .catch(error => {
+                console.error('Service Worker registration failed:', error);
+              });
+          });
+        }
 
     </script>
 </body>
