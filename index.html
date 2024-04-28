@@ -74,7 +74,7 @@ input[type=range] {
   -webkit-appearance: none;
   width: 60%;
   height: 40px;
-  background: #4CAF50;
+  background: #56a559;
   outline: none;
 }
 
@@ -127,7 +127,7 @@ input[type=range]::-moz-range-thumb {
       var slider = document.getElementById("vibration-slider");
 slider.oninput = function() {
   var value = (this.value-this.min)/(this.max-this.min)*100
-  this.style.background = 'linear-gradient(to right, #4CAF50 ' + value + '%, #d3d3d3 ' + value + '%)';
+  this.style.background = 'linear-gradient(to right, #56a559 ' + value + '%, #FFFFFF ' + value + '%)';
 };
         let intervalId;
         let startTime;
