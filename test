@@ -44,14 +44,15 @@
         }
 
         .timer-container button {
-          width: calc(100% - 2px); /* Full width with 2px margin on each side */
-          height: 40vh; /* 增大按钮高度 */; /* Button height */
-          margin-top: 5px;
-          font-size: 5em; /* Responsive font size */
-          padding: 5px 10px; /* 调整按钮内边距 */
-          background-color: #4CAF50; /* Green background color */
-          border: none; /* Remove border */
-          color: #fff; /* White text color */
+            width: calc(100% - 2px); /* Full width with 2px margin on each side */
+            height: 60vh; /* 增大按钮高度 */; /* Button height */
+            margin-top: 5px;
+            font-size: 10em; /* Responsive font size */
+            padding: 5px 10px; /* 调整按钮内边距 */
+
+            background-color: #4CAF50; /* Green background color */
+            border: none; /* Remove border */
+            color: #fff; /* White text color */
         }
 
         .timer-container button:hover {
@@ -102,7 +103,6 @@
         <div class="vibration-container">
             <h2 id="vibration-frequency-display">震動頻率 3次/秒</h2>
             <input type="range" id="vibration-slider" min="1" max="3" value="3" step="1">
-
         </div>
     </div>
     <script>
@@ -121,7 +121,7 @@
                 startVibration(); // Start vibration when timer starts
                 document.getElementById('timer-button').textContent = 'Stop Timer';
                 document.getElementById('timer-button').style.backgroundColor = '#FF0000'; // 將按鈕背景色設置為紅色
-
+                document.getElementById('vibration-slider').disabled = true;
             } else {
                 clearInterval(intervalId);
                 clearInterval(vibrationIntervalId); // Stop the vibration timer
@@ -129,6 +129,7 @@
                 document.getElementById('timer').textContent = '00:00:00';
                 document.getElementById('timer-button').textContent = 'Start Timer';
                 document.getElementById('timer-button').style.backgroundColor = '#4CAF50'; // 將按鈕背景色設置為綠色
+                document.getElementById('vibration-slider').disabled = false;
             }
             isTimerRunning = !isTimerRunning;
         }
@@ -169,23 +170,19 @@
         function updateVibrationFrequencyDisplay(value) {
             const frequencyDisplay = document.getElementById('vibration-frequency-display');
             frequencyDisplay.textContent = '震動頻率 ' + value + '次/秒';
-            const express = require('express');
-            const app = express();
-            const port = 3000;
-
-            // 使用 Express 路由
-            app.get('/', (req, res) => {
-              // 生成隨機數
-              const randomValue = Math.floor(Math.random() * 1000000000) + 1;
-              // 重定向到帶有隨機數的新 URL
-              res.redirect('/Timer/?v=' + randomValue);
-            });
-
-            // 監聽端口
-            app.listen(port, () => {
-              console.log(`Server listening at http://localhost:${port}`);
-            });
-
+        }
+        // 在網址中包含隨機數
+       window.addEventListener('load', () => {
+           // 檢查 URL 中是否存在隨機數
+           if (!window.location.href.includes('?v=')) {
+               // 生成隨機數
+               const randomValue = Math.floor(Math.random() * 1000000000) + 1;
+               // 構建新的 URL
+               const newURL = window.location.href + '?v=' + randomValue;
+               // 將新的 URL 分配給窗口位置，以觸發重新加載
+               window.location.href = newURL;
+           }
+       });
         // register service worker
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
