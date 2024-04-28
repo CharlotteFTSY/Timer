@@ -1,4 +1,4 @@
-const CACHE_NAME = 'offline-cache-v1';
+const CACHE_NAME = 'offline-cache-v2';
 const urlsToCache = [
   '/Timer/index.html',
   '/Timer/sw.js',
@@ -9,40 +9,44 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
-      .then(() => self.skipWaiting()) // 跳过等待状态，立即激活新的 Service Worker
+      .then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.filter(cacheName => cacheName.startsWith('offline-cache-') && cacheName !== CACHE_NAME)
+          .map(cacheName => caches.delete(cacheName))
+      );
+    })
+    .then(() => {
+      // Claim clients to ensure that updates are applied immediately
+      return self.clients.claim();
+    })
   );
 });
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // 检查缓存中是否有匹配的资源，如果有则直接返回缓存的资源
-        if (response) {
-          return response;
-        }
-
-        // 如果缓存中没有匹配的资源，则通过网络请求获取最新的资源
-        return fetch(event.request)
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.match(event.request)
           .then(response => {
-            // 检查是否成功获取到资源，如果成功则将资源添加到缓存中并返回给页面
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
+            const fetchPromise = fetch(event.request)
+              .then(networkResponse => {
+                if (networkResponse.status === 200) {
+                  cache.put(event.request, networkResponse.clone());
+                }
+                return networkResponse;
+              })
+              .catch(() => {
+                // Handle fetch errors
               });
 
-            return response;
+            return response || fetchPromise;
           });
       })
   );
-});
-
-// 当新的 Service Worker 安装完成后，立即激活新的 Service Worker
-self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim());
 });
