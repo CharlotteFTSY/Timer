@@ -70,32 +70,41 @@
           margin-top: 3px; /* 可选：如果需要，可以添加额外的顶部间距 */
         }
 
-     input[type=range] {
-  -webkit-appearance: none; /* Override default CSS styles */
+input[type=range] {
+  -webkit-appearance: none;
   appearance: none;
-  width: 60%; /* Full-width */
-  height: 50px; /* Specified height */
-  background: #d3d3d3; /* Grey background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  width: 60%;
+  height: 50px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
   transition: opacity .2s;
 }
 
 input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  -webkit-appearance: none;
   appearance: none;
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
 }
 
 input[type=range]::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+/* Add these selectors to change the color of the track */
+input[type=range]::-webkit-slider-runnable-track {
+  background: #4CAF50;
+}
+
+input[type=range]::-moz-range-track {
+  background: #4CAF50;
 }
 
 
